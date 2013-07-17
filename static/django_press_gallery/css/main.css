@@ -1,0 +1,55 @@
+@import 'reset.css';
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.inner {
+  margin: 0 auto;
+  width: 720px;
+}
+header {
+  padding-top: 40px;
+  height: 107px;
+  border-bottom: solid 2px #eee;
+}
+header h1,
+header h2 {
+  font-size: 20px;
+}
+header h2 {
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+header p {
+  font-size: 13px;
+}
+header a {
+  display: block;
+}
+.mediagroup {
+  border-bottom: solid 2px #eee;
+  padding: 20px 0;
+}
+.mediagroup .mediaset:last-child {
+  margin-right: 0 !important;
+}
+.mediaset {
+  width: 216px;
+  margin-right: 36px;
+}
+.mediaset h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.mediaset img {
+  width: 216px;
+  height: 216px;
+}

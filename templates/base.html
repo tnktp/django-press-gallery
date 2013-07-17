@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head charset="utf-8">
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ STATIC_URL }}django_press_gallery/css/main.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+    <div class="inner">
+        {% block content %}{% endblock %}
+    </div>
+    <!--
+    <script src="{{ STATIC_URL }}django_press_gallery/js/jquery-min.js"></script>
+    <script src="{{ STATIC_URL }}django_press_gallery/js/main.js"></script> -->
+</body>
+</html>
