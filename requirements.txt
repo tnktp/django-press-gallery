@@ -1,0 +1,7 @@
+Django
+MySQL-python
+South
+pytz
+PIL
+django-stdimage
+django-sendfile
