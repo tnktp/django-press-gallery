@@ -2,7 +2,10 @@ from django.contrib import admin
 from django_press_gallery import models
 
 
-admin.site.register(models.MediaSet)
+class MediaSetAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+
+admin.site.register(models.MediaSet, MediaSetAdmin)
 # admin.site.register(models.MediaFiles)
 
 class MediaFilesInline(admin.StackedInline):
