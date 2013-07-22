@@ -1,0 +1,30 @@
+{% extends "django_press_gallery/base.html" %}
+
+{% block title %}Press Photos | Media{% endblock %}
+
+{% block content %}
+{% if media %}
+<a href="{% url 'download_files' 'photo' %}">Download All Images</a>
+<div class="mediagroup clearfix">
+    {% for record in media %}
+    {% if forloop.counter|divisibleby:"4" %}
+    </div><div class="mediagroup clearfix">
+    {% endif %}
+    <div class="mediaset left">
+        <h3>{{ record.mediafiles_set.all.0.get_filename }}</h3>
+        <a href="{{ record.mediafiles_set.all.0.media_file.url }}">
+            <img src="{{ record.mediafiles_set.all.0.media_file.thumbnail.url }}">
+        </a>
+
+        <section class="download_section">
+            <h4>Download:</h4>
+            {% for mediafile in record.mediafiles_set.all %}<a href="{% url 'download' mediafile.id %}">{{ mediafile.description }}</a>{% endfor %}
+        </section>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="no-media-set">No media set available.</p>
+{% endif %}
+
+{% endblock %}

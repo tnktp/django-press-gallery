@@ -3,39 +3,20 @@
 {% block title %}Press Photos{% endblock %}
 
 {% block content %}
-<header>
-    <div class="left">
-        <h2>am</h2>
-        <h1>Press Photography</h1>
-    </div>
-    <p class="right">Jane Smith<a href="#">pr@getclean.com</a></p>
-</header>
+{% if media_sets %}
 <div class="mediagroup clearfix">
-    <a class="mediaset left">
-        <h3>title</h3>
-        <img src="">
+    {% for media_set in media_sets %}
+    {% if forloop.counter|divisibleby:"4" %}
+    </div><div class="mediagroup clearfix">
+    {% endif %}
+    <a href="{{ media_set.pk }}/{{ media_set.slug }}" class="mediaset left">
+        <h3>{{ media_set.title }}</h3>
+        <img src="{{ media_set.get_thumbnail_url }}">
     </a>
-    <a class="mediaset left">
-        <h3>title</h3>
-        <img src="">
-    </a>
-    <a class="mediaset left">
-        <h3>title</h3>
-        <img src="">
-    </a>
+    {% endfor %}
 </div>
-<div class="mediagroup clearfix">
-    <a class="mediaset left">
-        <h3>title</h3>
-        <img src="">
-    </a>
-    <a class="mediaset left">
-        <h3>title</h3>
-        <img src="">
-    </a>
-    <a class="mediaset left">
-        <h3>title</h3>
-        <img src="">
-    </a>
-</div>
+{% else %}
+<p class="no-media-set">No media set available.</p>
+{% endif %}
+
 {% endblock %}

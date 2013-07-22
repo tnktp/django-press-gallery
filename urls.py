@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, url
-from django.views.generic import TemplateView
+from django_press_gallery.views import MediaSet, Media, DownloadFILE, DownloadFileFormat
 
 urlpatterns = patterns('',
-    url(r'^/$',
-        TemplateView.as_view(template_name='django_press_gallery/pressphotos.html'),
-        name='home'
-    ),
+    url(r'^/$', MediaSet.as_view(), name='home'),
+    url(r'^/(?P<id>\d+)/([\w-]+)$', Media.as_view(), name='media'),
+    url(r'^/download/(?P<id>\d+)$', DownloadFILE.as_view(), name='download'),
+    url(r'^/download_files/(?P<media_type>\w+)$', DownloadFileFormat.as_view(), name='download_files'),
 )
