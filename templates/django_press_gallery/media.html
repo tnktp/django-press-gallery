@@ -9,7 +9,7 @@
         <h1>Press Photography</h1>
     </div>
     <p class="right">Jane Smith<a href="#">pr@getclean.com</a></p>
-    <a class="download_all" href="{% url 'download_files' 'photo' %}">Download all images</a>
+    <a class="download_all" href="{% url 'download_files' media_type='photo' %}">Download all images</a>
 </header>
 {% if media %}
 <div class="mediagroup clearfix">
