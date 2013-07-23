@@ -21,7 +21,7 @@ class Login(View):
         return render(request, 'django_press_gallery/login.html')
 
     def post(self, request):
-        username = request.POST.get('username')
+        username = settings.LANDING_PAGE_LOGIN_USERNAME
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:

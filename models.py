@@ -37,6 +37,9 @@ class MediaGroup(BaseModel):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Media revision"
+
 
 class MediaFiles(BaseModel):
     media = models.ForeignKey(MediaGroup)
