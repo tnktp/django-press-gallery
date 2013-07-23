@@ -13,7 +13,7 @@
 <nav>
     <a href="{% url 'home' %}">Home</a>
     <a href="" class="active">{{ media_set.title }}</a>
-    <a class="download_all" href="{% url 'download_files' media_type='photo' %}">Download all images</a>
+    <a class="download_all" href="{% url 'download_files' mediaset_id=media_set.pk media_type='photo' %}">Download all images</a>
 </nav>
 {% if media %}
 <div class="mediagroup clearfix">

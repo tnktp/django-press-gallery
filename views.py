@@ -59,7 +59,7 @@ class DownloadFileFormat(LoginRequired):
     def get(self, request, media_type, mediaset_id=None):
         # media_files = MediaFiles.objects.filter(media_type=media_type)
         if mediaset_id:
-            media_files = MediaFiles.objects.filter(mediagroup__mediaset_id=mediaset_id)
+            media_files = MediaFiles.objects.filter(media__mediaset_id=mediaset_id)
         else:
             media_files = MediaFiles.objects.all()
 
