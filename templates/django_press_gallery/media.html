@@ -24,7 +24,9 @@
     <div class="mediaset left">
         <h3>{{ record.mediafiles_set.all.0.get_filename }}</h3>
         <a href="{{ record.mediafiles_set.all.0.media_file.url }}">
-            <img src="{{ record.mediafiles_set.all.0.media_file.thumbnail.url }}">
+            <div class="image_wrapper">
+                <img src="{{ record.mediafiles_set.all.0.media_file.thumbnail.url }}">
+            </div>
         </a>
 
         <section class="download_section">
