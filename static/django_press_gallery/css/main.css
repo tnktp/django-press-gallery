@@ -48,6 +48,9 @@ header a {
   font-weight: 400;
   margin-top: 2px;
 }
+.active {
+  color: #888;
+}
 .no-media-set {
   font-size: 15px;
   margin-top: 20px;
@@ -76,6 +79,20 @@ header a {
   height: 216px;
   box-shadow: 0 0 1px #aaa;
 }
+nav {
+  border-bottom: solid 2px #eee;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+}
+nav a {
+  float: left;
+  margin-right: 10px;
+}
+nav .download_all {
+  float: right;
+  margin-right: 0;
+}
 .download_section {
   margin-top: 20px;
   font-size: 13px;
@@ -91,13 +108,6 @@ header a {
 }
 .download_section a:last-child {
   border-right: none;
-}
-.download_all {
-  position: absolute;
-  top: 120px;
-  font-size: 12px;
-  left: 50%;
-  margin-left: -58px;
 }
 #login_form {
   width: 262px;

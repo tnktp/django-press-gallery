@@ -43,7 +43,7 @@ class Media(LoginRequired):
         media_set = get_object_or_404(MediaSetModel, pk=id)
         media = media_set.mediagroup_set.all()
 
-        return render(request, 'django_press_gallery/media.html', {'media': media})
+        return render(request, 'django_press_gallery/media.html', {'media': media, 'media_set': media_set})
 
 class DownloadFILE(LoginRequired):
     def get(self, request, id):
