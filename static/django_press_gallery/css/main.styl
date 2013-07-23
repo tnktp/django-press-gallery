@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700')
 @import 'reset.css'
 
-body
+body, input, button
     font-family: 'Open Sans', sans-serif
 
 .clearfix:after
@@ -89,3 +89,40 @@ header
             border-right none
         border-right solid 1px #000
 
+.download_all
+    position absolute
+    top 120px
+    font-size 12px
+    left 50%
+    margin-left -58px
+
+#login_form
+    width 262px
+    margin 100px auto
+
+    input, button
+        border-radius 2px
+
+    input
+        display block
+        width 250px
+        border solid 1px #ddd
+        padding 5px
+        margin 10px 0
+
+    button
+        border none
+        padding 6px 0
+        width 262px
+        background #0cf
+        color #fff
+
+        &:active
+            background #5bd
+
+    .error_message
+        font-size 13px
+        text-align center
+        margin-top 10px
+        color #ff0000
+        display none

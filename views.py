@@ -1,27 +1,51 @@
 import os
 from django.views.generic import View
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import authenticate, login
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
 from django_press_gallery.models import MediaSet as MediaSetModel, MediaGroup, MediaFiles
+from . import JSONResponse
 from sendfile import sendfile
 from zipfile import ZipFile
 import StringIO
 
-class MediaSet(View):
+class LoginRequired(View):
+    @method_decorator(user_passes_test(lambda u: u.is_authenticated(), login_url='/pressphotos/login'))
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequired, self).dispatch(*args, **kwargs)
+
+class Login(View):
+    def get(self, request):
+        return render(request, 'django_press_gallery/login.html')
+
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return JSONResponse(201)
+        return JSONResponse(400)
+        
+
+class MediaSet(LoginRequired):
     def get(self, request):
         return render(request, 'django_press_gallery/pressphotos.html', {
             'media_sets': MediaSetModel.objects.all()
         })
 
 
-class Media(View):
+class Media(LoginRequired):
     def get(self, request, id):
         media_set = get_object_or_404(MediaSetModel, pk=id)
         media = media_set.mediagroup_set.all()
 
         return render(request, 'django_press_gallery/media.html', {'media': media})
 
-class DownloadFILE(View):
+class DownloadFILE(LoginRequired):
     def get(self, request, id):
         mediafile = get_object_or_404(MediaFiles, pk=id)
         return sendfile(
@@ -31,7 +55,7 @@ class DownloadFILE(View):
             attachment_filename=mediafile.get_filename()
         )
 
-class DownloadFileFormat(View):
+class DownloadFileFormat(LoginRequired):
     def get(self, request, media_type, mediaset_id=None):
         # media_files = MediaFiles.objects.filter(media_type=media_type)
         if mediaset_id:

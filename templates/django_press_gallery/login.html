@@ -1,0 +1,12 @@
+{% extends "django_press_gallery/base.html" %}
+
+{% block title %}Press Photos | Login{% endblock %}
+
+{% block content %}
+    <form action="" method="POST" id="login_form">{% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+        <p class="error_message">You're login credentials are invalid.</p>
+    </form>
+{% endblock %}
