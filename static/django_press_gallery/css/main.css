@@ -178,6 +178,10 @@ nav .download_all {
 }
 #download_all_version_type li:last-child {
   border-bottom: none;
+  border-radius: 0 0 5px 5px;
+}
+#download_all_version_type li:hover {
+  background: #ddd;
 }
 #download_all_version_type a {
   text-transform: uppercase;
@@ -185,11 +189,4 @@ nav .download_all {
   color: #888;
   display: block;
   padding: 5px;
-}
-#download_all_version_type a:hover {
-  background: #ddd;
-  color: #777;
-}
-#download_all_version_type a:last-child:hover {
-  border-radius: 0 0 5px 5px;
 }
