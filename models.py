@@ -2,7 +2,7 @@ from django.db import models
 from . import DPGImageField
 from south.modelsinspector import add_introspection_rules
 
-add_introspection_rules([], ['^stdimage\.fields\.StdImageField'])
+add_introspection_rules([], ['^django_press_gallery\.DPGImageField'])
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -43,11 +43,9 @@ class MediaGroup(BaseModel):
 
 class MediaFiles(BaseModel):
     media = models.ForeignKey(MediaGroup)
-    # mediaset = models.ForeignKey(MediaSet)
-    # parent_media = models.ForeignKey('self', null=True, blank=True)
     media_file = DPGImageField(upload_to='django_press_gallery_uploads', thumbnail_size=(215, 215))
     media_type = models.CharField(max_length=50, null=True, blank=True, editable=False)
-    description = models.TextField(null=True, blank=True)
+    description = models.CharField(max_length=50)
     # TODO: Change files to file field so that It can work for other media types and not just images
 
     def __unicode__(self):
@@ -57,3 +55,7 @@ class MediaFiles(BaseModel):
 
     def get_filename(self):
         return self.media_file.url.split('/')[-1]
+
+    def clean(self):
+        if self.description:
+            self.description = self.description.strip()

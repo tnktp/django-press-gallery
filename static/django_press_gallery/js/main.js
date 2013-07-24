@@ -7,7 +7,7 @@
   };
 
   $(function() {
-    return $('#login_form').on('submit', function(e) {
+    $('#login_form').on('submit', function(e) {
       var $form, data, url;
 
       e.preventDefault();
@@ -27,6 +27,14 @@
           return $form.find('.error_message').show();
         }
       });
+    });
+    $('#download_all_version_type_btn').on('click', function(e) {
+      $('#overlay').show();
+      return $('#download_all_version_type').show();
+    });
+    return $('#overlay, #download_all_version_type a').on('click', function(e) {
+      $('#overlay').hide();
+      return $('#download_all_version_type').hide();
     });
   });
 

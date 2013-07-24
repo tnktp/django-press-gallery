@@ -17,4 +17,13 @@ $ ->
         .error (xhr, textStatus, errorThrown) ->
             if xhr.status == 400
                 $form.find('.error_message').show()
+
+    $('#download_all_version_type_btn').on 'click', (e) ->
+        $('#overlay').show()
+        $('#download_all_version_type').show()
+
+    $('#overlay, #download_all_version_type a').on 'click', (e) ->
+        $('#overlay').hide()
+        $('#download_all_version_type').hide()
+
                 

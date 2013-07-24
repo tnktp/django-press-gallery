@@ -20,6 +20,7 @@ button {
 .inner {
   margin: 0 auto;
   width: 720px;
+  position: relative;
 }
 a {
   color: #17b7f1;
@@ -92,13 +93,18 @@ nav {
   line-height: 20px;
   font-size: 12px;
 }
-nav a {
+nav > a {
   float: left;
   margin-right: 10px;
 }
 nav .download_all {
   float: right;
+  font-size: 12px;
+  color: #17b7f1;
+  background: none;
+  border: none;
   margin-right: 0;
+  padding: 0 5px;
 }
 .download_section {
   margin-top: 20px;
@@ -147,4 +153,36 @@ nav .download_all {
   margin-top: 10px;
   color: #f00;
   display: none;
+}
+#overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+#download_all_version_type {
+  display: none;
+  position: absolute;
+  width: 110px;
+  z-index: 100;
+  background: #eee;
+  top: 169px;
+  right: 0;
+  border-radius: 0 0 5px 5px;
+}
+#download_all_version_type li {
+  border-bottom: dotted 1px #ddd;
+}
+#download_all_version_type li:last-child {
+  border-bottom: none;
+}
+#download_all_version_type a {
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #888;
+  display: block;
+  padding: 5px;
 }

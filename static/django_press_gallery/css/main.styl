@@ -19,6 +19,7 @@ body, input, button
 .inner
     margin 0 auto
     width 720px
+    position relative
 
 a 
     color #17b7f1
@@ -90,13 +91,18 @@ nav
     line-height 20px
     font-size 12px
 
-    a
+    > a
         float left
         margin-right 10px
 
     .download_all
         float right
+        font-size 12px
+        color #17b7f1
+        background none
+        border none
         margin-right 0
+        padding 0 5px
 
 
 .download_section
@@ -143,3 +149,34 @@ nav
         margin-top 10px
         color #ff0000
         display none
+
+#overlay
+    display none
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index 99
+
+#download_all_version_type
+    display none
+    position absolute
+    width 110px
+    z-index 100
+    background #eee
+    top 169px
+    right 0
+    border-radius 0  0 5px 5px
+
+    li
+        border-bottom dotted 1px #ddd
+        &:last-child
+            border-bottom none
+
+    a
+        text-transform uppercase
+        font-size 12px
+        color #888
+        display block
+        padding 5px

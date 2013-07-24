@@ -43,7 +43,17 @@ class Media(LoginRequired):
         media_set = get_object_or_404(MediaSetModel, pk=id)
         media = media_set.mediagroup_set.all()
 
-        return render(request, 'django_press_gallery/media.html', {'media': media, 'media_set': media_set})
+        # Get unique list of media discriptions
+        versions = (MediaFiles.objects
+                              .filter(media__mediaset_id=id)
+                              .values_list('description', flat=True)
+                              .distinct())
+
+        return render(request, 'django_press_gallery/media.html', {
+            'media': media,
+            'media_set': media_set,
+            'versions': versions
+        })
 
 class DownloadFILE(LoginRequired):
     def get(self, request, id):
@@ -56,12 +66,10 @@ class DownloadFILE(LoginRequired):
         )
 
 class DownloadFileFormat(LoginRequired):
-    def get(self, request, media_type, mediaset_id=None):
-        # media_files = MediaFiles.objects.filter(media_type=media_type)
+    def get(self, request, version, mediaset_id=None):
+        media_files = MediaFiles.objects.filter(description=version)
         if mediaset_id:
-            media_files = MediaFiles.objects.filter(media__mediaset_id=mediaset_id)
-        else:
-            media_files = MediaFiles.objects.all()
+            media_files = media_files.filter(media__mediaset_id=mediaset_id)
 
         # str_io = StringIO.StringIO()
         zip_file_name = '{media}/django_press_gallery/files.zip'.format(media=settings.MEDIA_ROOT)
