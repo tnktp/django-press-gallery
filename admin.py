@@ -10,6 +10,7 @@ admin.site.register(models.MediaSet, MediaSetAdmin)
 
 class MediaFilesInline(admin.StackedInline):
     model = models.MediaFiles
+    prepopulated_fields = {"slug": ("description",)}
     extra  = 0
 
 class MediaGroupAdmin(admin.ModelAdmin):

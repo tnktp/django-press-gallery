@@ -7,6 +7,11 @@
   };
 
   $(function() {
+    $(".media_group").colorbox({
+      rel: 'media_group',
+      maxWidth: '700px',
+      maxHeight: '700px'
+    });
     $('#login_form').on('submit', function(e) {
       var $form, data, url;
 

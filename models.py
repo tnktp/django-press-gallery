@@ -46,6 +46,7 @@ class MediaFiles(BaseModel):
     media_file = DPGImageField(upload_to='django_press_gallery_uploads', thumbnail_size=(215, 215))
     media_type = models.CharField(max_length=50, null=True, blank=True, editable=False)
     description = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
     # TODO: Change files to file field so that It can work for other media types and not just images
 
     def __unicode__(self):

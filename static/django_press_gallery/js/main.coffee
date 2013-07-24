@@ -4,6 +4,8 @@ get_url_parameter = (name) ->
     )
     
 $ ->
+    $(".media_group").colorbox({rel: 'media_group', maxWidth: '700px', maxHeight: '700px'});
+
     $('#login_form').on 'submit', (e) ->
         e.preventDefault()
         $form = $(@)
