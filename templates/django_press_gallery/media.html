@@ -14,7 +14,7 @@
     <a href="{% url 'home' %}">Home</a>
     <a href="" class="active">{{ media_set.title }}</a>
     {% if versions %}
-        <button id="download_all_version_type_btn" class="download_all" type="button">Download version</button>
+        <button id="download_all_version_type_btn" class="download_all" type="button">Download set</button>
         <ul id="download_all_version_type">
             {% for version in versions %}
                 <li><a href="{% url 'download_files' mediaset_id=media_set.pk version=version %}">{{ version }}</a></li>
