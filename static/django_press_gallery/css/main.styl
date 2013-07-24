@@ -181,15 +181,9 @@ nav
         display block
         padding 5px
 
-#media_modal
-    position absolute
-    top 100px
-    left 50%
-    margin-left -250px
-    background #fff
-    border solid 1px #eee
-    box-shadow 0 2px 4px #ddd
-    padding 5px
-    img
-        max-width 500px
-        max-height 500px
+        &:hover
+            background: #ddd
+            color #777
+
+        &:last-child:hover
+            border-radius 0 0 5px 5px
