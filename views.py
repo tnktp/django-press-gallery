@@ -46,7 +46,7 @@ class Media(LoginRequired):
         # Get unique list of media discriptions
         versions = (MediaFiles.objects
                               .filter(media__mediaset_id=id)
-                              .values_list('description', flat=True)
+                              .values_list('slug', flat=True)
                               .distinct())
 
         return render(request, 'django_press_gallery/media.html', {

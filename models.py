@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from . import DPGImageField
 from south.modelsinspector import add_introspection_rules
 
@@ -46,7 +47,7 @@ class MediaFiles(BaseModel):
     media_file = DPGImageField(upload_to='django_press_gallery_uploads', thumbnail_size=(215, 215))
     media_type = models.CharField(max_length=50, null=True, blank=True, editable=False)
     description = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50)
+    slug = models.SlugField(max_length=50, null=True, blank=True, editable=False)
     # TODO: Change files to file field so that It can work for other media types and not just images
 
     def __unicode__(self):
@@ -60,3 +61,4 @@ class MediaFiles(BaseModel):
     def clean(self):
         if self.description:
             self.description = self.description.strip()
+            self.slug = slugify(self.description)
