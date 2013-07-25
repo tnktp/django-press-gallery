@@ -72,7 +72,7 @@ class DownloadFileFormat(LoginRequired):
             media_files = media_files.filter(media__mediaset_id=mediaset_id)
 
         # str_io = StringIO.StringIO()
-        zip_file_name = '{media}/django_press_gallery/files.zip'.format(media=settings.MEDIA_ROOT)
+        zip_file_name = '{media}/django_press_gallery_uploads/files.zip'.format(media=settings.MEDIA_ROOT)
         with ZipFile(zip_file_name, 'w') as file_zip:
             for media_file in media_files:
                 fdir, fname = os.path.split(media_file.media_file.path)
