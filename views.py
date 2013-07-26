@@ -66,22 +66,29 @@ class DownloadFILE(LoginRequired):
         )
 
 class DownloadFileFormat(LoginRequired):
-    def get(self, request, version, mediaset_id=None):
-        media_files = MediaFiles.objects.filter(description=version)
-        if mediaset_id:
-            media_files = media_files.filter(media__mediaset_id=mediaset_id)
+    def get(self, request, version, mediaset_id):
+        media_set = get_object_or_404(MediaSetModel, pk=mediaset_id)
+        media_files = MediaFiles.objects.filter(
+            description=version,
+            media__mediaset_id=media_set.pk
+        )
 
-        # str_io = StringIO.StringIO()
-        zip_file_name = '{media}/django_press_gallery_uploads/files.zip'.format(media=settings.MEDIA_ROOT)
-        with ZipFile(zip_file_name, 'w') as file_zip:
-            for media_file in media_files:
-                fdir, fname = os.path.split(media_file.media_file.path)
-                zip_path = os.path.join('files', fname)
-                file_zip.write(media_file.media_file.path, zip_path)
+        zip_file_name = '{media}/django_press_gallery_uploads/{media_set_name}-{mediaset_id}-{version}-files.zip'.format(
+            media=settings.MEDIA_ROOT,
+            media_set_name=media_set.slug,
+            mediaset_id=media_set.pk,
+            version=version
+        )
+
+        if not os.path.exists(zip_file_name):
+            with ZipFile(zip_file_name, 'w') as file_zip:
+                for media_file in media_files:
+                    fdir, fname = os.path.split(media_file.media_file.path)
+                    zip_path = os.path.join('files', fname)
+                    file_zip.write(media_file.media_file.path, zip_path)
 
         return sendfile(
             request,
             zip_file_name,
-            attachment=True,
-            # attachment_filename=zip_file_name.split('/')[-1]
+            attachment=True
         )
