@@ -73,22 +73,25 @@ class DownloadFileFormat(LoginRequired):
             media__mediaset_id=media_set.pk
         )
 
-        zip_file_name = '{media}/django_press_gallery_uploads/{media_set_name}-{mediaset_id}-{version}-files.zip'.format(
-            media=settings.MEDIA_ROOT,
+        file_name = '{media_set_name}-{mediaset_id}-{version}-files'.format(
             media_set_name=media_set.slug,
             mediaset_id=media_set.pk,
             version=version
         )
+        zip_file_name_and_path = '{media}/django_press_gallery_uploads/{file_name}.zip'.format(
+            media=settings.MEDIA_ROOT,
+            file_name=file_name
+        )
 
-        if not os.path.exists(zip_file_name):
-            with ZipFile(zip_file_name, 'w') as file_zip:
+        if not os.path.exists(zip_file_name_and_path):
+            with ZipFile(zip_file_name_and_path, 'w') as file_zip:
                 for media_file in media_files:
                     fdir, fname = os.path.split(media_file.media_file.path)
-                    zip_path = os.path.join('files', fname)
+                    zip_path = os.path.join(file_name, fname)
                     file_zip.write(media_file.media_file.path, zip_path)
 
         return sendfile(
             request,
-            zip_file_name,
+            zip_file_name_and_path,
             attachment=True
         )
