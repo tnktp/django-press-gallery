@@ -41,7 +41,7 @@ class MediaSet(LoginRequired):
 class Media(LoginRequired):
     def get(self, request, id):
         media_set = get_object_or_404(MediaSetModel, pk=id)
-        media = media_set.mediagroup_set.all()
+        media = media_set.mediagroup_set.all().order_by('title')
 
         # Get unique list of media discriptions
         versions = (MediaFiles.objects

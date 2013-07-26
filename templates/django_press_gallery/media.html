@@ -29,7 +29,7 @@
     </div><div class="mediagroup clearfix">
     {% endif %}
     <div class="mediaset left">
-        <h3>{{ record.mediafiles_set.all.0.get_filename }}</h3>
+        <h3>{{ record.mediafiles_set.all.0.media.title }}</h3>
         <a class="media_group" href="{{ record.mediafiles_set.all.0.media_file.url }}">
             <div class="image_wrapper">
                 <img src="{{ record.mediafiles_set.all.0.media_file.thumbnail.url }}">
