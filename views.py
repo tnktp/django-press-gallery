@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
+from django.core.files.temp import NamedTemporaryFile
 from django_press_gallery.models import MediaSet as MediaSetModel, MediaGroup, MediaFiles
 from . import JSONResponse
 from sendfile import sendfile
@@ -78,20 +79,17 @@ class DownloadFileFormat(LoginRequired):
             mediaset_id=media_set.pk,
             version=version
         )
-        zip_file_name_and_path = '{media}/django_press_gallery_uploads/{file_name}.zip'.format(
-            media=settings.MEDIA_ROOT,
-            file_name=file_name
-        )
 
-        if not os.path.exists(zip_file_name_and_path):
-            with ZipFile(zip_file_name_and_path, 'w') as file_zip:
-                for media_file in media_files:
-                    fdir, fname = os.path.split(media_file.media_file.path)
-                    zip_path = os.path.join(file_name, fname)
-                    file_zip.write(media_file.media_file.path, zip_path)
+        new_tmp_file = NamedTemporaryFile(suffix='.zip')
+        with ZipFile(new_tmp_file.name, 'w') as file_zip:
+            for media_file in media_files:
+                fdir, fname = os.path.split(media_file.media_file.path)
+                zip_path = os.path.join(file_name, fname)
+                file_zip.write(media_file.media_file.path, zip_path)
 
         return sendfile(
             request,
-            zip_file_name_and_path,
-            attachment=True
+            new_tmp_file.name,
+            attachment=True,
+            attachment_filename='{file_name}.zip'.format(file_name=file_name)
         )
