@@ -1,3 +1,5 @@
+import os, shutil
+from django.conf import settings
 from django.http import HttpResponse
 from django.utils import simplejson
 from django.utils.encoding import force_unicode
@@ -65,3 +67,24 @@ class DPGImageField(StdImageField):
                 img.save(filename, optimize=1)
             except IOError:
                 img.save(filename)
+
+    def _rename_resize_image(self, instance=None, **kwargs):
+        """Renames the image, and calls methods to resize and create the
+        thumbnail.
+
+        """
+        if getattr(instance, self.name):
+            filename = getattr(instance, self.name).path
+            filename_splitext = os.path.splitext(filename)
+            original_file_name = os.path.split(filename_splitext[0])[1]
+            ext = filename_splitext[1].lower().replace('jpg', 'jpeg')
+            dst = self.generate_filename(instance, '%s%s' % (original_file_name, ext))
+            dst_fullpath = os.path.join(settings.MEDIA_ROOT, dst)
+            
+            if self.size:
+                self._resize_image(dst_fullpath, self.size)
+            if self.thumbnail_size:
+                thumbnail_filename = self._get_thumbnail_filename(
+                    dst_fullpath)
+                shutil.copyfile(dst_fullpath, thumbnail_filename)
+                self._resize_image(thumbnail_filename, self.thumbnail_size)
