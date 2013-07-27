@@ -74,6 +74,11 @@ header a {
 .mediaset h3 {
   text-align: center;
   margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .mediaset .image_wrapper {
   display: table-cell;
@@ -108,7 +113,7 @@ nav .download_all {
 }
 .download_section {
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 12px;
 }
 .download_section h4 {
   float: left;
