@@ -13,15 +13,18 @@
 {% if media_sets %}
 <div class="mediagroup clearfix">
     {% for media_set in media_sets %}
-    {% if forloop.counter|divisibleby:"4" %}
-    </div><div class="mediagroup clearfix">
-    {% endif %}
     <a href="{{ media_set.pk }}/{{ media_set.slug }}" class="mediaset left">
         <h3>{{ media_set.title }}</h3>
         <div class="image_wrapper">
             <img src="{{ media_set.get_thumbnail_url }}">
         </div>
     </a>
+    {% if forloop.counter|divisibleby:"3" %}
+    </div>
+    {% if not forloop.last %}
+        <div class="mediagroup clearfix">
+    {% endif %}
+    {% endif %}
     {% endfor %}
 </div>
 {% else %}

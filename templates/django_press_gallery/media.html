@@ -25,9 +25,6 @@
 {% if media %}
 <div class="mediagroup clearfix">
     {% for record in media %}
-    {% if forloop.counter|divisibleby:"4" %}
-    </div><div class="mediagroup clearfix">
-    {% endif %}
     <div class="mediaset left">
         <h3>{{ record.mediafiles_set.all.0.media.title }}</h3>
         <a class="media_group" href="{{ record.mediafiles_set.all.0.media_file.url }}">
@@ -41,6 +38,12 @@
             {% for mediafile in record.mediafiles_set.all %}<a href="{% url 'download' mediafile.id %}">{{ mediafile.description }}</a>{% endfor %}
         </section>
     </div>
+    {% if forloop.counter|divisibleby:"3" %}
+    </div>
+    {% if not forloop.last %}
+        <div class="mediagroup clearfix">
+    {% endif %}
+    {% endif %}
     {% endfor %}
 </div>
 {% else %}
