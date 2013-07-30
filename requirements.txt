@@ -3,5 +3,5 @@ MySQL-python
 South
 pytz
 PIL
-django-stdimage
+easy-thumbnails
 django-sendfile

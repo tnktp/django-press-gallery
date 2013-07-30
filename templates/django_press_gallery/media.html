@@ -27,9 +27,9 @@
     {% for record in media %}
     <div class="mediaset left">
         <h3>{{ record.mediafiles_set.all.0.media.title }}</h3>
-        <a class="media_group" href="{{ record.mediafiles_set.all.0.media_file.url }}">
+        <a class="media_group" href="{{ record.mediafiles_set.all.0.media_file.modal.url }}" title="{{ record.mediafiles_set.all.0.media.title }}">
             <div class="image_wrapper">
-                <img src="{{ record.mediafiles_set.all.0.media_file.thumbnail.url }}">
+                <img src="{{ record.mediafiles_set.all.0.media_file.avatar.url }}">
             </div>
         </a>
 

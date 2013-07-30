@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from . import DPGImageField
+from easy_thumbnails.fields import ThumbnailerImageField
 from south.modelsinspector import add_introspection_rules
 
 add_introspection_rules([], ['^django_press_gallery\.DPGImageField'])
@@ -27,7 +27,7 @@ class MediaSet(BaseModel):
             media_files = first_media_item.mediafiles_set.all()
             if media_files:
                 first_media_file = media_files[0]
-                return first_media_file.media_file.thumbnail.url()
+                return first_media_file.media_file['avatar'].url
         return ''
 
 
@@ -44,7 +44,7 @@ class MediaGroup(BaseModel):
 
 class MediaFiles(BaseModel):
     media = models.ForeignKey(MediaGroup)
-    media_file = DPGImageField(upload_to='django_press_gallery_uploads', thumbnail_size=(215, 215))
+    media_file = ThumbnailerImageField(upload_to='django_press_gallery_uploads')
     media_type = models.CharField(max_length=50, null=True, blank=True, editable=False)
     description = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, null=True, blank=True, editable=False)
@@ -62,3 +62,6 @@ class MediaFiles(BaseModel):
         if self.description:
             self.description = self.description.strip()
             self.slug = slugify(self.description)
+
+    class Meta:
+        ordering = ['-description']
