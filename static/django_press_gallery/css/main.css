@@ -82,6 +82,8 @@ header a {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  height: 15px;
+  line-height: 15px;
 }
 .mediaset .image_wrapper {
   display: table-cell;
