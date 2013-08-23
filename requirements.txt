@@ -5,3 +5,4 @@ pytz
 PIL
 easy-thumbnails
 django-sendfile
+django-stdimage
