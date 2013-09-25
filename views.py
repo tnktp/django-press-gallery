@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
 from django_press_gallery.models import MediaSet as MediaSetModel, MediaGroup, MediaFiles
 from . import JSONResponse
-from sendfile import sendfile
+from .lib.sendfile import sendfile
 from zipfile import ZipFile
 import StringIO
 
