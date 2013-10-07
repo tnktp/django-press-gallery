@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from easy_thumbnails.fields import ThumbnailerImageField
 from south.modelsinspector import add_introspection_rules
 
-add_introspection_rules([], ['^django_press_gallery\.DPGImageField'])
+add_introspection_rules([], ['^am_distribution\.DPGImageField'])
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -44,7 +44,7 @@ class MediaGroup(BaseModel):
 
 class MediaFiles(BaseModel):
     media = models.ForeignKey(MediaGroup)
-    media_file = ThumbnailerImageField(upload_to='django_press_gallery_uploads')
+    media_file = ThumbnailerImageField(upload_to='am_distribution_uploads')
     media_type = models.CharField(max_length=50, null=True, blank=True, editable=False)
     description = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, null=True, blank=True, editable=False)

@@ -6,23 +6,23 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
-from django_press_gallery.models import MediaSet as MediaSetModel, MediaGroup, MediaFiles
+from am_distribution.models import MediaSet as MediaSetModel, MediaGroup, MediaFiles
 from . import JSONResponse
 from .lib.sendfile import sendfile
 from zipfile import ZipFile
 import StringIO
 
 class LoginRequired(View):
-    @method_decorator(user_passes_test(lambda u: u.is_authenticated(), login_url='/pressphotos/login'))
+    @method_decorator(user_passes_test(lambda u: u.is_authenticated(), login_url='/am_distribution/login'))
     def dispatch(self, *args, **kwargs):
         return super(LoginRequired, self).dispatch(*args, **kwargs)
 
 class Login(View):
     def get(self, request):
-        return render(request, 'django_press_gallery/login.html')
+        return render(request, 'am_distribution/login.html')
 
     def post(self, request):
-        username = settings.LANDING_PAGE_LOGIN_USERNAME
+        username = settings.AM_DISTRIBUTION_USERNAME
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -34,7 +34,7 @@ class Login(View):
 
 class MediaSet(LoginRequired):
     def get(self, request):
-        return render(request, 'django_press_gallery/pressphotos.html', {
+        return render(request, 'am_distribution/pressphotos.html', {
             'media_sets': MediaSetModel.objects.all()
         })
 
@@ -50,7 +50,7 @@ class Media(LoginRequired):
                               .values_list('slug', flat=True)
                               .distinct())
 
-        return render(request, 'django_press_gallery/media.html', {
+        return render(request, 'am_distribution/media.html', {
             'media': media,
             'media_set': media_set,
             'versions': versions

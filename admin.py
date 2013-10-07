@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django_press_gallery import models
+from am_distribution import models
 
 
 class MediaSetAdmin(admin.ModelAdmin):
