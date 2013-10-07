@@ -13,7 +13,10 @@ from zipfile import ZipFile
 import StringIO
 
 class LoginRequired(View):
-    @method_decorator(user_passes_test(lambda u: u.is_authenticated(), login_url='/am_distribution/login'))
+    @method_decorator(user_passes_test(
+        lambda u: u.is_staff or u.is_superuser or u.username == settings.AM_DISTRIBUTION_USERNAME,
+        login_url='/am_distribution/login'
+    ))
     def dispatch(self, *args, **kwargs):
         return super(LoginRequired, self).dispatch(*args, **kwargs)
 
