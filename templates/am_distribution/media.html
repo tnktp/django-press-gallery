@@ -11,13 +11,13 @@
     <!--<p class="right">Jane Smith<a href="#">pr@getclean.com</a></p>-->
 </header>
 <nav>
-    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'am_distribution_home' %}">Home</a>
     <a href="" class="active">{{ media_set.title }}</a>
     {% if versions %}
         <button id="download_all_version_type_btn" class="download_all" type="button">Download set</button>
         <ul id="download_all_version_type">
             {% for version in versions %}
-                <li><a href="{% url 'download_files' mediaset_id=media_set.pk version=version %}">{{ version }}</a></li>
+                <li><a href="{% url 'am_distribution_download_files' mediaset_id=media_set.pk version=version %}">{{ version }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
@@ -35,7 +35,7 @@
 
         <section class="download_section">
             <h4>Download:</h4>
-            {% for mediafile in record.mediafiles_set.all %}<a href="{% url 'download' mediafile.id %}">{{ mediafile.description }}</a>{% endfor %}
+            {% for mediafile in record.mediafiles_set.all %}<a href="{% url 'am_distribution_download' mediafile.id %}">{{ mediafile.description }}</a>{% endfor %}
         </section>
     </div>
     {% if forloop.counter|divisibleby:"3" %}
